@@ -13,6 +13,9 @@ const useStyle = makeStyles({
     text: props => ({
         textDecoration: props.completed ? 'line-through' : 'none',
         cursor: 'pointer',
+        width: '100%',
+        height: '100%',
+        userSelect: 'none',
     }),
 })
 

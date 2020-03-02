@@ -43,7 +43,7 @@ function TodoCard({ addTodo }) {
             <Paper elevation={3} className={classes.box}>
                 <Box p={2}>
                     <Typography variant='h4' className={classes.title}>
-                        Add To Do:
+                        Add Todo:
                     </Typography>
                     <Box my={2} px={2} display='flex' flexDirection='column'>
                         <TextField
@@ -51,7 +51,7 @@ function TodoCard({ addTodo }) {
                             onChange={onTextChange}
                             className={classes.input}
                             id='todo'
-                            label='Add Todo'
+                            label='Add To do'
                             variant='outlined'
                         />
                         <Button
