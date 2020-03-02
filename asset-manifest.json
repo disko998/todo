@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/disko998/my-todos/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/disko998/my-todos/static/js/main.9da0e1b3.chunk.js",
+    "main.js.map": "/disko998/my-todos/static/js/main.9da0e1b3.chunk.js.map",
+    "runtime-main.js": "/disko998/my-todos/static/js/runtime-main.25722250.js",
+    "runtime-main.js.map": "/disko998/my-todos/static/js/runtime-main.25722250.js.map",
+    "static/js/2.f55ab54f.chunk.js": "/disko998/my-todos/static/js/2.f55ab54f.chunk.js",
+    "static/js/2.f55ab54f.chunk.js.map": "/disko998/my-todos/static/js/2.f55ab54f.chunk.js.map",
+    "index.html": "/disko998/my-todos/index.html",
+    "precache-manifest.7f563d9e9230059dc89bbf587524baf2.js": "/disko998/my-todos/precache-manifest.7f563d9e9230059dc89bbf587524baf2.js",
+    "service-worker.js": "/disko998/my-todos/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/disko998/my-todos/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.f55ab54f.chunk.js.LICENSE.txt": "/disko998/my-todos/static/js/2.f55ab54f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.25722250.js",
+    "static/js/2.f55ab54f.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.9da0e1b3.chunk.js"
+  ]
+}
