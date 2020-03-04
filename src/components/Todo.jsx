@@ -1,7 +1,17 @@
 import React from 'react'
-import { Divider, Box, Typography, FormControlLabel, Checkbox, IconButton } from '@material-ui/core'
+import {
+    ListItem,
+    ListItemAvatar,
+    Avatar,
+    ListItemSecondaryAction,
+    ListItemText,
+    IconButton,
+    Divider,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import AutorenewIcon from '@material-ui/icons/Autorenew'
+import DoneAllIcon from '@material-ui/icons/DoneAll'
 
 import { connect } from 'react-redux'
 import { toggleTodo, removeTodo } from '../redux/todos.actions'
@@ -17,6 +27,12 @@ const useStyle = makeStyles({
         height: '100%',
         userSelect: 'none',
     }),
+    avatar: props => ({
+        background: props.completed ? '#388e3c' : '#42a4f5',
+    }),
+    listItem: {
+        cursor: 'pointer',
+    },
 })
 
 function TodoCard({ todo, toggleTodo, removeTodo }) {
@@ -24,32 +40,20 @@ function TodoCard({ todo, toggleTodo, removeTodo }) {
     const classes = useStyle(props)
 
     return (
-        <div key={todo.id}>
-            <Box display='flex' alignItems='center' p={2}>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            color='primary'
-                            checked={todo.completed}
-                            onChange={() => toggleTodo(todo.id)}
-                            value='checkedG'
-                        />
-                    }
-                />
-                <Typography onClick={() => toggleTodo(todo.id)} className={classes.text}>
-                    {todo.text}
-                </Typography>
-                <IconButton
-                    onClick={() => removeTodo(todo.id)}
-                    className={classes.trash}
-                    aria-label='delete'
-                    color='secondary'
-                >
-                    <DeleteIcon fontSize='small' />
-                </IconButton>
-            </Box>
+        <React.Fragment>
+            <ListItem button className={classes.listItem} onClick={() => toggleTodo(todo.id)}>
+                <ListItemAvatar>
+                    <Avatar className={classes.avatar}>{todo.completed ? <DoneAllIcon /> : <AutorenewIcon />}</Avatar>
+                </ListItemAvatar>
+                <ListItemText className={classes.text} primary={todo.text} />
+                <ListItemSecondaryAction>
+                    <IconButton edge='end' aria-label='delete' onClick={() => removeTodo(todo.id)}>
+                        <DeleteIcon color='secondary' />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
             <Divider />
-        </div>
+        </React.Fragment>
     )
 }
 

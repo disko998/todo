@@ -1,6 +1,5 @@
 import React from 'react'
-import { Typography, Box, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core'
+import { Typography, Box, Paper, makeStyles } from '@material-ui/core'
 
 import TodoList from './TodoList'
 import TodoForm from './TodoForm'
