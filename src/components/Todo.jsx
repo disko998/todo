@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AutorenewIcon from '@material-ui/icons/Autorenew'
 import DoneAllIcon from '@material-ui/icons/DoneAll'
+import { Draggable } from 'react-beautiful-dnd'
 
 import { connect } from 'react-redux'
 import { toggleTodo, removeTodo } from '../redux/todos.actions'
@@ -32,28 +33,35 @@ const useStyle = makeStyles({
     }),
     listItem: {
         cursor: 'pointer',
+        background: '#fff',
     },
 })
 
-function TodoCard({ todo, toggleTodo, removeTodo }) {
+function TodoCard({ todo, toggleTodo, removeTodo, index }) {
     const props = { completed: todo.completed }
     const classes = useStyle(props)
 
     return (
-        <React.Fragment>
-            <ListItem button className={classes.listItem} onClick={() => toggleTodo(todo.id)}>
-                <ListItemAvatar>
-                    <Avatar className={classes.avatar}>{todo.completed ? <DoneAllIcon /> : <AutorenewIcon />}</Avatar>
-                </ListItemAvatar>
-                <ListItemText className={classes.text} primary={todo.text} />
-                <ListItemSecondaryAction>
-                    <IconButton edge='end' aria-label='delete' onClick={() => removeTodo(todo.id)}>
-                        <DeleteIcon color='secondary' />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
-            <Divider />
-        </React.Fragment>
+        <Draggable draggableId={todo.id} index={index}>
+            {provided => (
+                <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                    <ListItem button className={classes.listItem} onClick={() => toggleTodo(todo.id)}>
+                        <ListItemAvatar>
+                            <Avatar className={classes.avatar}>
+                                {todo.completed ? <DoneAllIcon /> : <AutorenewIcon />}
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText className={classes.text} primary={todo.text} />
+                        <ListItemSecondaryAction>
+                            <IconButton edge='end' aria-label='delete' onClick={() => removeTodo(todo.id)}>
+                                <DeleteIcon color='secondary' />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                    <Divider />
+                </div>
+            )}
+        </Draggable>
     )
 }
 

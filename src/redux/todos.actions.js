@@ -14,3 +14,8 @@ export const toggleTodo = id => ({
     type: actionType.TOGGLE_TODO,
     payload: id,
 })
+
+export const updateTodos = todos => ({
+    type: actionType.UPDATE_TODOS,
+    payload: todos,
+})

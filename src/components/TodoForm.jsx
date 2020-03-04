@@ -20,7 +20,8 @@ function TodoForm({ addTodo }) {
     const [todoValue, setValue] = useState('')
     const classes = useStyle()
 
-    const addNewTodo = () => {
+    const addNewTodo = e => {
+        e.preventDefault()
         todoValue.length && addTodo(todoValue)
         setValue('')
     }

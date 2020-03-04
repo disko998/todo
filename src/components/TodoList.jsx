@@ -1,33 +1,57 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { List } from '@material-ui/core'
-
-import { connect } from 'react-redux'
-import Todo from './Todo'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Typography, makeStyles } from '@material-ui/core'
+import { connect } from 'react-redux'
+
+import Todo from './Todo'
+import { updateTodos } from '../redux/todos.actions'
+import { randomId } from '../utils'
 
 const useStyle = makeStyles({
     label: {
         marginTop: 40,
         textAlign: 'center',
     },
-    list: {
-        listStyleType: 'none',
-    },
 })
 
-function TodoCard({ todos }) {
-    const [dense, setDense] = React.useState(false)
+function TodoList({ todos, updateTodos }) {
     const classes = useStyle()
-    const sortedTodos = todos.sort((a, b) => b.date - a.date)
+
+    const onDragEnd = result => {
+        const { destination, source, draggableId } = result
+
+        if (!destination) return
+
+        if (destination.droppableId === source.droppableId && destination.index === source.index)
+            return
+
+        const newOrder = Array.from(todos)
+        const sourceTodo = newOrder.find(todo => todo.id === draggableId)
+
+        newOrder.splice(source.index, 1)
+        newOrder.splice(destination.index, 0, sourceTodo)
+
+        updateTodos(newOrder)
+    }
 
     return todos.length ? (
-        <List dense={dense}>
-            {sortedTodos.map(todo => (
-                <Todo key={todo.id} todo={todo} />
-            ))}
-        </List>
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId={randomId()}>
+                {provided => (
+                    <List ref={provided.innerRef} {...provided.droppableProps}>
+                        {todos.map((todo, index) => (
+                            <Todo key={todo.id} todo={todo} index={index} />
+                        ))}
+                        {provided.placeholder}
+                    </List>
+                )}
+            </Droppable>
+        </DragDropContext>
     ) : (
-        <Typography className={classes.label}>{`Hi there, looks like you don't have anything to do :)`}</Typography>
+        <Typography
+            className={classes.label}
+        >{`Hi there, looks like you don't have anything to do :)`}</Typography>
     )
 }
 
@@ -35,4 +59,8 @@ const mapStateToProps = state => ({
     todos: state.todos,
 })
 
-export default connect(mapStateToProps)(TodoCard)
+const mapDispatchToProps = dispatch => ({
+    updateTodos: todos => dispatch(updateTodos(todos)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
