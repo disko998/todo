@@ -12,6 +12,7 @@ const useStyle = makeStyles({
     },
     button: {
         marginTop: 10,
+        width: '100%',
     },
 })
 
@@ -29,24 +30,27 @@ function TodoForm({ addTodo }) {
 
     return (
         <Box my={2} px={2} display='flex' flexDirection='column'>
-            <TextField
-                value={todoValue}
-                onChange={onTextChange}
-                className={classes.input}
-                id='todo'
-                label='Your Todo'
-                variant='outlined'
-            />
-            <Button
-                onClick={addNewTodo}
-                variant='contained'
-                color='primary'
-                size='large'
-                className={classes.button}
-                startIcon={<AddBoxIcon />}
-            >
-                Add Todo
-            </Button>
+            <form onSubmit={addNewTodo}>
+                <TextField
+                    value={todoValue}
+                    onChange={onTextChange}
+                    className={classes.input}
+                    id='todo'
+                    label='Your Todo'
+                    variant='outlined'
+                    onSubmit={addNewTodo}
+                />
+                <Button
+                    onClick={addNewTodo}
+                    variant='contained'
+                    color='primary'
+                    size='large'
+                    className={classes.button}
+                    startIcon={<AddBoxIcon />}
+                >
+                    Add Todo
+                </Button>
+            </form>
         </Box>
     )
 }

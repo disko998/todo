@@ -13,11 +13,12 @@ const useStyle = makeStyles({
 
 function TodoCard({ todos }) {
     const classes = useStyle()
+    const sortedTodos = todos.sort((a, b) => b.date - a.date)
 
     return todos.length ? (
-        todos.map(todo => <Todo key={todo.id} todo={todo} />)
+        sortedTodos.map(todo => <Todo key={todo.id} todo={todo} />)
     ) : (
-        <Typography className={classes.label}>{`Hey there, add some todos :)`}</Typography>
+        <Typography className={classes.label}>{`Hi there, looks like you don't have anything to do :)`}</Typography>
     )
 }
 
