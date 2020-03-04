@@ -1,12 +1,13 @@
 import { randomId } from '../utils'
+import actionType from './todos.types'
 
 export function todoReducer(state = [], action) {
     switch (action.type) {
-        case 'ADD_TODO':
+        case actionType.ADD_TODO:
             return state.concat([{ id: randomId(), text: action.payload, completed: false }])
-        case 'REMOVE_TODO':
+        case actionType.REMOVE_TODO:
             return state.filter(todo => todo.id !== action.payload)
-        case 'TOGGLE_TODO':
+        case actionType.TOGGLE_TODO:
             return state.map(todo => (action.payload === todo.id ? { ...todo, completed: !todo.completed } : todo))
         default:
             return state
