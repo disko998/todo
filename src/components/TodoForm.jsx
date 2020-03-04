@@ -49,7 +49,7 @@ function TodoForm({ addTodo }) {
                     className={classes.button}
                     startIcon={<AddBoxIcon />}
                 >
-                    Add Todo
+                    Add
                 </Button>
             </form>
         </Box>
