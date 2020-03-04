@@ -1,6 +1,6 @@
-# How to:
+# How to run the project?
 
-In the project directory, you can run:
+In the project directory run:
 
 ### `yarn start`
 
