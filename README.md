@@ -1,4 +1,8 @@
-# How to run the project?
+# App demo
+https://just-todos.herokuapp.com/
+
+# For developers
+## How to run the project?
 
 In the project directory run:
 
