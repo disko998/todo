@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 import Todo from './Todo'
 import { updateTodos } from '../redux/todos.actions'
-import { randomId } from '../utils'
+import { randomId, filterTodos } from '../utils'
 
 const useStyle = makeStyles({
     label: {
@@ -15,7 +15,7 @@ const useStyle = makeStyles({
     },
 })
 
-function TodoList({ todos, updateTodos }) {
+function TodoList({ todos, updateTodos, filter }) {
     const classes = useStyle()
 
     const onDragEnd = result => {
@@ -35,12 +35,14 @@ function TodoList({ todos, updateTodos }) {
         updateTodos(newOrder)
     }
 
+    let filteredTodos = filterTodos(filter, todos)
+
     return todos.length ? (
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId={randomId()}>
                 {provided => (
                     <List ref={provided.innerRef} {...provided.droppableProps}>
-                        {todos.map((todo, index) => (
+                        {filteredTodos.map((todo, index) => (
                             <Todo key={todo.id} todo={todo} index={index} />
                         ))}
                         {provided.placeholder}
