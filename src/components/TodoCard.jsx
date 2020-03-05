@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { Typography, Box, Paper, makeStyles, ButtonGroup, Button } from '@material-ui/core'
+import { Box, Paper, makeStyles, ButtonGroup, Button } from '@material-ui/core'
 
 import TodoList from './TodoList'
 import TodoForm from './TodoForm'
-import { connect } from 'react-redux'
+import logo from '../assets/logo.svg'
 
 const useStyle = makeStyles({
     box: {
-        width: '100%',
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
@@ -22,6 +21,11 @@ const useStyle = makeStyles({
         alignItems: 'center',
         width: '100%',
     },
+    logo: {
+        height: 50,
+        marginBottom: '1em',
+        marginTop: '1em',
+    },
 })
 
 function TodoCard() {
@@ -30,11 +34,9 @@ function TodoCard() {
 
     return (
         <Box my={2}>
-            <Paper elevation={3} className={classes.box}>
-                <Box p={2}>
-                    <Typography variant='h4' className={classes.title}>
-                        Add Todo
-                    </Typography>
+            <Paper elevation={3}>
+                <Box p={2} className={classes.box}>
+                    <img src={logo} alt='logo' className={classes.logo} />
                     <TodoForm />
                     <ButtonGroup
                         className={classes.wrapper}
@@ -43,7 +45,9 @@ function TodoCard() {
                     >
                         <Button onClick={() => setFilter('all')}>All</Button>
                         <Button onClick={() => setFilter('completed')}>Completed</Button>
-                        <Button onClick={() => setFilter('in-progress')}>In Progress</Button>
+                        <Button onClick={() => setFilter('in-progress')}>
+                            In Progress
+                        </Button>
                     </ButtonGroup>
                     <TodoList filter={filter} />
                 </Box>
