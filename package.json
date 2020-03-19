@@ -3,6 +3,10 @@
     "version": "0.1.0",
     "private": true,
     "homepage": "https://github.com/disko998/my-todos",
+    "engines": {
+        "node": "12.10.0",
+        "yarn": "1.21.1"
+    },
     "dependencies": {
         "@material-ui/core": "^4.9.5",
         "@material-ui/icons": "^4.9.1",
