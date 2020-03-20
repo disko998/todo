@@ -5,7 +5,7 @@
     "homepage": "https://github.com/disko998/my-todos",
     "engines": {
         "node": "12.10.0",
-        "yarn": "1.21.1"
+        "npm": "6.10.3"
     },
     "dependencies": {
         "@material-ui/core": "^4.9.5",
