@@ -1,4 +1,6 @@
 # App demo
+Just todos helps you organize your work simple and easy:
+
 https://just-todos.herokuapp.com/
 
 # For developers
