@@ -2,7 +2,7 @@
     "name": "just-todos",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://github.com/disko998/my-todos",
+    "homepage": "https://github.com/disko998/just-todos",
     "engines": {
         "node": "12.10.0",
         "yarn": "1.21.1"
