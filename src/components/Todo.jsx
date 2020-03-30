@@ -27,6 +27,8 @@ const useStyle = makeStyles({
         width: '100%',
         height: '100%',
         userSelect: 'none',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     }),
     avatar: props => ({
         background: props.completed ? '#388e3c' : '#42a4f5',
@@ -44,8 +46,16 @@ function TodoCard({ todo, toggleTodo, removeTodo, index }) {
     return (
         <Draggable draggableId={todo.id} index={index}>
             {provided => (
-                <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                    <ListItem button className={classes.listItem} onClick={() => toggleTodo(todo.id)}>
+                <div
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef}
+                >
+                    <ListItem
+                        button
+                        className={classes.listItem}
+                        onClick={() => toggleTodo(todo.id)}
+                    >
                         <ListItemAvatar>
                             <Avatar className={classes.avatar}>
                                 {todo.completed ? <DoneAllIcon /> : <AutorenewIcon />}
@@ -53,7 +63,11 @@ function TodoCard({ todo, toggleTodo, removeTodo, index }) {
                         </ListItemAvatar>
                         <ListItemText className={classes.text} primary={todo.text} />
                         <ListItemSecondaryAction>
-                            <IconButton edge='end' aria-label='delete' onClick={() => removeTodo(todo.id)}>
+                            <IconButton
+                                edge='end'
+                                aria-label='delete'
+                                onClick={() => removeTodo(todo.id)}
+                            >
                                 <DeleteIcon color='secondary' />
                             </IconButton>
                         </ListItemSecondaryAction>
