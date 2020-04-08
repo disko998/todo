@@ -1,40 +1,71 @@
 import { randomId } from '../utils'
 import actionType from './todos.types'
 
-export function todoReducer(state = [], action) {
-  switch (action.type) {
-    case actionType.ADD_TODO:
-      const newState = [...state]
-      newState.unshift({
-        id: randomId(),
-        text: action.payload,
-        completed: false,
-        date: new Date()
-      })
-      return newState
+const defaultState = {
+    todos: [],
+    filter: 'all',
+}
 
-    case actionType.REMOVE_TODO:
-      return state.filter(todo => todo.id !== action.payload)
+export function todoReducer(state = defaultState, action) {
+    switch (action.type) {
+        case actionType.ADD_TODO:
+            const todos = [...state.todos]
+            todos.unshift({
+                id: randomId(),
+                text: action.payload,
+                completed: false,
+                date: new Date(),
+            })
+            return { ...state, todos }
 
-    case actionType.TOGGLE_TODO:
-      return state.map(todo => (action.payload === todo.id ? { ...todo, completed: !todo.completed } : todo))
+        case actionType.REMOVE_TODO:
+            return {
+                ...state,
+                todos: state.todos.filter(todo => todo.id !== action.payload),
+            }
 
-    case actionType.UPDATE_TODOS:
-      return action.payload
+        case actionType.TOGGLE_TODO:
+            return {
+                ...state,
+                todos: state.todos.map(todo =>
+                    action.payload === todo.id
+                        ? { ...todo, completed: !todo.completed }
+                        : todo,
+                ),
+            }
 
-    case actionType.MARK_IMPORTANT:
-      return state.map(todo => (action.payload === todo.id ? { ...todo, important: !Boolean(todo.important) } : todo))
+        case actionType.UPDATE_TODOS:
+            return { ...state, todos: action.payload }
 
-    case 'persist/REHYDRATE':
-      if (action.payload) {
-        const { todos } = action.payload
-        const formatTodos = todos.map(todo => ({ ...todo, date: new Date(todo.date) }))
-        return formatTodos
-      } else {
-        return state
-      }
+        case actionType.MARK_IMPORTANT:
+            return {
+                ...state,
+                todos: state.todos.map(todo =>
+                    action.payload === todo.id
+                        ? { ...todo, important: !Boolean(todo.important) }
+                        : todo,
+                ),
+            }
 
-    default:
-      return state
-  }
+        case actionType.FILTER_TODOS:
+            return {
+                ...state,
+                filter: action.payload,
+            }
+
+        case 'persist/REHYDRATE':
+            if (action.payload) {
+                const { todo } = action.payload
+                const withFormatDate = todo.todos.map(todo => ({
+                    ...todo,
+                    date: new Date(todo.date),
+                }))
+                return { ...state, todos: withFormatDate }
+            } else {
+                return state
+            }
+
+        default:
+            return state
+    }
 }

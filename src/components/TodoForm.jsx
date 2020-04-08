@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
+import { Box, TextField, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import { connect } from 'react-redux'
@@ -37,7 +37,7 @@ function TodoForm({ addTodo }) {
                     onChange={onTextChange}
                     className={classes.input}
                     id='todo'
-                    label='Your Todo'
+                    label='My Todo'
                     variant='outlined'
                     onSubmit={addNewTodo}
                 />

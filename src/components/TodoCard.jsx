@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { Box, Paper, makeStyles, ButtonGroup, Button } from '@material-ui/core'
+import { connect } from 'react-redux'
 
+import logo from '../assets/logo.svg'
 import TodoList from './TodoList'
 import TodoForm from './TodoForm'
-import logo from '../assets/logo.svg'
+import { filterTodos } from '../redux/todos.actions'
+import { selectFilter } from '../redux/todos.select'
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(props => ({
     box: {
         display: 'flex',
         justifyContent: 'center',
@@ -26,11 +29,11 @@ const useStyle = makeStyles({
         marginBottom: '1em',
         marginTop: '1em',
     },
-})
+    active: {},
+}))
 
-function TodoCard() {
-    const [filter, setFilter] = useState('all')
-    const classes = useStyle()
+function TodoCard({ filterTodos, filter }) {
+    const classes = useStyle(filter)
 
     return (
         <Box my={2}>
@@ -43,17 +46,44 @@ function TodoCard() {
                         color='primary'
                         aria-label='outlined primary button group'
                     >
-                        <Button onClick={() => setFilter('all')}>All</Button>
-                        <Button onClick={() => setFilter('completed')}>Completed</Button>
-                        <Button onClick={() => setFilter('in-progress')}>
-                            In Progress
+                        <Button
+                            onClick={() => filterTodos('all')}
+                            variant={filter === 'all' ? 'contained' : 'outlined'}
+                        >
+                            All
+                        </Button>
+                        <Button
+                            onClick={() => filterTodos('in-progress')}
+                            variant={filter === 'in-progress' ? 'contained' : 'outlined'}
+                        >
+                            Progress
+                        </Button>
+                        <Button
+                            onClick={() => filterTodos('completed')}
+                            variant={filter === 'completed' ? 'contained' : 'outlined'}
+                        >
+                            Completed
+                        </Button>
+                        <Button
+                            onClick={() => filterTodos('important')}
+                            variant={filter === 'important' ? 'contained' : 'outlined'}
+                        >
+                            Important
                         </Button>
                     </ButtonGroup>
-                    <TodoList filter={filter} />
+                    <TodoList />
                 </Box>
             </Paper>
         </Box>
     )
 }
 
-export default TodoCard
+const mapStateToProps = state => ({
+    filter: selectFilter(state),
+})
+
+const mapDispatchToProps = dispatch => ({
+    filterTodos: filter => dispatch(filterTodos(filter)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoCard)

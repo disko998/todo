@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 
 import Todo from './Todo'
 import { updateTodos } from '../redux/todos.actions'
-import { randomId, filterTodos } from '../utils'
+import { randomId } from '../utils'
+import { selectTodos } from '../redux/todos.select'
 
 const useStyle = makeStyles({
     label: {
@@ -15,7 +16,7 @@ const useStyle = makeStyles({
     },
 })
 
-function TodoList({ todos, updateTodos, filter }) {
+function TodoList({ todos, updateTodos }) {
     const classes = useStyle()
 
     const onDragEnd = result => {
@@ -23,7 +24,10 @@ function TodoList({ todos, updateTodos, filter }) {
 
         if (!destination) return
 
-        if (destination.droppableId === source.droppableId && destination.index === source.index)
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        )
             return
 
         const newOrder = Array.from(todos)
@@ -35,14 +39,12 @@ function TodoList({ todos, updateTodos, filter }) {
         updateTodos(newOrder)
     }
 
-    let filteredTodos = filterTodos(filter, todos)
-
     return todos.length ? (
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId={randomId()}>
                 {provided => (
                     <List ref={provided.innerRef} {...provided.droppableProps}>
-                        {filteredTodos.map((todo, index) => (
+                        {todos.map((todo, index) => (
                             <Todo key={todo.id} todo={todo} index={index} />
                         ))}
                         {provided.placeholder}
@@ -53,12 +55,12 @@ function TodoList({ todos, updateTodos, filter }) {
     ) : (
         <Typography
             className={classes.label}
-        >{`Hi there, looks like you don't have anything to do :)`}</Typography>
+        >{`Hi, looks like you don't have anything to do today :)`}</Typography>
     )
 }
 
 const mapStateToProps = state => ({
-    todos: state.todos,
+    todos: selectTodos(state),
 })
 
 const mapDispatchToProps = dispatch => ({

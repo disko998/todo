@@ -4,10 +4,10 @@ import storage from 'redux-persist/lib/storage'
 
 import { todoReducer } from './todos.reducer'
 
-const rootReducer = combineReducers({ todos: todoReducer })
+const rootReducer = combineReducers({ todo: todoReducer })
 
 const persistConfig = {
-    key: 'todos',
+    key: 'state',
     storage,
 }
 
